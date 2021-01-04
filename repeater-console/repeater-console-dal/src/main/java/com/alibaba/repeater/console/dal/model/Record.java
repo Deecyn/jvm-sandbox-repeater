@@ -1,6 +1,7 @@
 package com.alibaba.repeater.console.dal.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -51,6 +52,10 @@ public class Record implements java.io.Serializable {
 
     private String response;
 
+    /** 注解 @JsonIgnore 用于临时解决 ManyToOne 导致的死循环问题；
+     * 参考 https://blog.csdn.net/qq_41621362/article/details/103997237
+     */
+    @JsonIgnore
     @OneToMany(mappedBy = "record", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Replay> replays;
 }

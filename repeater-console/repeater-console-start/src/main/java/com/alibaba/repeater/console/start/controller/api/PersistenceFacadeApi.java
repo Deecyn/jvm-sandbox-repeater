@@ -36,6 +36,7 @@ public class PersistenceFacadeApi {
                                          @PathVariable("traceId") String traceId,
                                          HttpServletRequest request) {
         ReplayParams params = ReplayParams.builder().repeatId(request.getHeader("RepeatId")).build();
+        params.setIp("127.0.0.1");
         params.setAppName(appName);
         params.setTraceId(traceId);
         return replayService.replay(params);

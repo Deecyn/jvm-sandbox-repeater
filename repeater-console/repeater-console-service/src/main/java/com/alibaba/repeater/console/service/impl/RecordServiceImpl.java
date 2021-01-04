@@ -14,6 +14,7 @@ import com.alibaba.repeater.console.common.domain.RecordDetailBO;
 import com.alibaba.repeater.console.common.domain.ReplayStatus;
 import com.alibaba.repeater.console.common.params.RecordParams;
 import com.alibaba.repeater.console.dal.dao.RecordDao;
+import com.alibaba.repeater.console.dal.dao.ReplayDao;
 import com.alibaba.repeater.console.dal.model.Record;
 import com.alibaba.repeater.console.dal.model.Replay;
 import com.alibaba.repeater.console.service.RecordService;
@@ -38,6 +39,8 @@ import java.util.stream.Collectors;
 @Slf4j
 public class RecordServiceImpl implements RecordService {
 
+    @Resource
+    private ReplayDao replayDao;
     @Resource
     private RecordDao recordDao;
     @Resource
@@ -95,6 +98,6 @@ public class RecordServiceImpl implements RecordService {
 
     @Override
     public RepeaterResult<RepeatModel> callback(String repeatId) {
-        return null;
+        return RepeaterResult.builder().success(true).data(replayDao.findByRepeatId(repeatId)).build();
     }
 }

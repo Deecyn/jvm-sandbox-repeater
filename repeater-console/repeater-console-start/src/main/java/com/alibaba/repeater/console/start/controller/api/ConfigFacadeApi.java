@@ -31,6 +31,8 @@ public class ConfigFacadeApi {
         params.setAppName(appName);
         params.setEnvironment(env);
         RepeaterResult<ModuleConfigBO> result = moduleConfigService.query(params);
+
+        // 当没有向数据库中配置数据时，返回的 RepeaterResult 中的 success 标志为 false，此时 data 属性为 null。当调用 result.getData().getConfigModel() 时会产生 NPE。
         return RepeaterResult.builder().success(result.isSuccess()).message(result.getMessage()).data(result.getData().getConfigModel()).build();
     }
 
